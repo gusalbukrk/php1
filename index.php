@@ -10,6 +10,15 @@
       </style>
   </head>
   <body>
+    <!-- <table>
+      <thead>
+        <th>Name</th>
+        <th>Year(s)</th>
+        <th>Duration</th>
+        <th>Rating</th>
+      </thead>
+      <tbody> -->
+
     <?php
       require 'utils.php';
 
@@ -18,10 +27,37 @@
       if (!$conn) die('ERROR: ' . mysqli_connect_error());
 
       $data = fetch_all($conn);
-      print_json($data);
+      // print_json($data);
+
+      echo "
+        <table>
+          <thead>
+            <th>Name</th>
+            <th>Year(s)</th>
+            <th>Duration</th>
+            <th>Rating</th>
+          </thead>
+          <tbody>
+      ";
+
+      foreach ($data as $table) { // table is games, movies or tv_shows
+        foreach ($table['rows'] as $row) {
+          print_row($table['type'], $row);
+        }
+      }
+
+      echo "
+          </tbody>
+        </table>
+      ";
 
       $conn->close();
+
+      // foreach ($data as $row) {
+      //   echo "${row['name']}</br>";
+      // }
     ?>
+
   </body>
 </html>
 

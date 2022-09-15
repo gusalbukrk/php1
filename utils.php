@@ -24,4 +24,33 @@
   function print_json($table) {
     echo json_encode($table);
   }
+
+
+  function print_row($table, $row) {
+    // echo "
+    //   <tr>
+    //     <td>${row['name']}</td>
+    //     <td></td>
+    //     <td></td>
+    //     <td>${row['rating']}</td>
+    //   </tr>
+    // ";
+
+    $name = $year = $duration = $rating = '';
+
+    $name = ($table == 'movies' || $table == 'tv_shows') ? $row['name'] : "${row['name']} (${row['platform']})";
+
+    $rating = $row['rating'];
+
+    echo "
+      <tr>
+        <td>${name}</td>
+        <td>${year}</td>
+        <td>${duration}</td>
+        <td>${rating}</td>
+      </tr>
+    ";
+  }
+
 ?>
+
