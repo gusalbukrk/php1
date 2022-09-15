@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>LAMP Stack</title>
+      <style>
+        h1 { font-family: sans-serif; }
+      </style>
+  </head>
+  <body>
+    <?php
+    function f()
+
+
+    // mysqli_connect(server, username, password, database);
+      $conn = mysqli_connect('localhost', 'root', 'wd051017', 'entertainment');
+
+      if (!$conn) die('ERROR: ' . mysqli_connect_error());
+
+      // echo "Connected successfully</br>";
+
+      $table = array('games' => [], 'movies' => [], 'tv_shows' => []);
+
+      array_push($table['games'], ...($conn->query("SELECT * FROM games")->fetch_all(MYSQLI_ASSOC)));
+      // $table['games']['type'] = 'games'; array_push($table['games'], ...($conn->query("SELECT * FROM games")->fetch_all(MYSQLI_ASSOC)));
+      array_push($table['movies'], ...($conn->query("SELECT * FROM movies")->fetch_all(MYSQLI_ASSOC)));
+      array_push($table['tv_shows'], ...($conn->query("SELECT * FROM tv_shows")->fetch_all(MYSQLI_ASSOC)));
+
+      // print_r($table);
+
+      foreach ($table as $row) {
+        print_r($row);
+        echo '</br></br>';
+      }
+
+      // // count
+      // $c;
+      // foreach ($table as $row)
+      //   $c += count($row);
+      // echo "${c}";
+
+      $conn->close();
+    ?>
+  </body>
+</html>
+

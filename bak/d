@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>LAMP Stack</title>
+      <style>
+        h1 { font-family: sans-serif; }
+      </style>
+  </head>
+  <body>
+    <?php
+      function fetch($conn, &$table, $resource) {
+        // $table[$resource] = array_merge(array('type' => $resource), ($conn->query("SELECT * FROM ${resource}")->fetch_all(MYSQLI_ASSOC)));
+        // $table[$resource] = array_merge(array('type' => $resource), $conn->query("SELECT * FROM ${resource}")->fetch_all(MYSQLI_ASSOC));
+        $table[$resource] = array_merge(array('type' => $resource), array('rows' => $conn->query("SELECT * FROM ${resource}")->fetch_all(MYSQLI_ASSOC)));
+      }
+
+      function print_json($table) {
+        echo json_encode($table);
+      }
+
+      // mysqli_connect(server, username, password, database);
+      $conn = mysqli_connect('localhost', 'root', 'wd051017', 'entertainment');
+
+      if (!$conn) die('ERROR: ' . mysqli_connect_error());
+      // echo "Connected successfully</br>";
+
+      $table = [];
+
+      fetch($conn, $table, 'games');
+      fetch($conn, $table, 'movies');
+      fetch($conn, $table, 'tv_shows');
+
+      print_json($table);
+
+      $conn->close();
+    ?>
+  </body>
+</html>
+
