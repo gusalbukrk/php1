@@ -8,8 +8,9 @@
       <style>
         h1 { font-family: sans-serif; }
       </style>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
   </head>
-  <body>
+  <body class="mx-auto mt-4 mb-5" style="width: 800px;">
     <?php
       require 'utils.php';
 
@@ -19,7 +20,9 @@
 
       // $data = fetch_all($conn);
       $data = fetch($conn, 'movies');
-      print_json($data);
+      // print_json($data);
+
+      print_data('movies', $data);
 
       $conn->close();
     ?>

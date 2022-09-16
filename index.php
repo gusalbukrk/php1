@@ -8,17 +8,9 @@
       <style>
         h1 { font-family: sans-serif; }
       </style>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
   </head>
-  <body>
-    <!-- <table>
-      <thead>
-        <th>Name</th>
-        <th>Year(s)</th>
-        <th>Duration</th>
-        <th>Rating</th>
-      </thead>
-      <tbody> -->
-
+  <body class="mx-auto mt-4 mb-5" style="width: 800px;">
     <?php
       require 'utils.php';
 
@@ -29,35 +21,9 @@
       $data = fetch_all($conn);
       // print_json($data);
 
-      echo "
-        <table>
-          <thead>
-            <th>Name</th>
-            <th>Year(s)</th>
-            <th>Duration</th>
-            <th>Rating</th>
-          </thead>
-          <tbody>
-      ";
-
-      foreach ($data as $table) { // table is games, movies or tv_shows
-        foreach ($table['rows'] as $row) {
-          print_row($table['type'], $row);
-        }
-      }
-
-      echo "
-          </tbody>
-        </table>
-      ";
+      print_data('homepage', $data);
 
       $conn->close();
-
-      // foreach ($data as $row) {
-      //   echo "${row['name']}</br>";
-      // }
     ?>
-
   </body>
 </html>
-
